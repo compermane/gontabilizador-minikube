@@ -9,7 +9,7 @@ Primeiramente, faça o clone do repositório
 git clone https://github.com/compermane/gontabilizador
 ```
 
-Feito o clone, inicie o minikube ou execute o arquivo build.sh
+Feito o clone, inicie o minikube ou execute o arquivo build.sh (talvez seja necessário executar [chmod +x build.sh])
 ```bash
 minikube start
 ```

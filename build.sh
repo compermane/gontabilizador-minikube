@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Pegar as imagens
 eval $(minikube docker-env)
 
