@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ensaios</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/home.css"/>
+</head>
+<body>
+    <h2>Cadastrar Novo Ensaios</h2>
+    <form action="api/v1/registro-ensaio" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required>
+        <button type="submit">Cadastrar</button>
+        <a href="/">Ir para ritmistas</a>
+        <a href="/presencas">Registrar presencas</a>
+    </form>
+    <h1>Lista de Ritmistas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .}}
+            <tr>
+                <td>{{.Nome}}</td>
+                <td>{{.Data}}</td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="2">Nenhum ensaio encontrado</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</body>
+</html>

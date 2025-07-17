@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrar Presença</title>
+    <link rel="stylesheet" href="/static/styles/home.css">
+</head>
+<body>
+    <h2>Registrar Presença</h2>
+
+    <form method="GET" action="/presencas">
+        <label for="ensaio">Selecione o Ensaio:</label>
+        <select name="ensaio_id" id="ensaio" onchange="this.form.submit()">
+            <option value="0">Selecione um ensaio</option>
+            {{range .Ensaios}}
+            <option value="{{.ID}}" {{if eq $.SelectedEnsaioID .ID}}selected{{end}}>{{.Nome}} {{.Data}}</option>
+            {{end}}
+        </select>
+    </form>
+{{if ne .SelectedEnsaioID 0}}
+<form method="POST" action="/api/v1/registrar-presenca">
+    <input type="hidden" id="ensaio_id" name="ensaio_id" value="{{.SelectedEnsaioID}}" />
+
+    {{range .Ritmistas}}
+    <div>
+        <label>
+            <input type="checkbox" name="presentes" value="{{.ID}}" {{if (index $.PresencaMap .ID)}}checked{{end}}>
+            {{.Nome}}
+        </label>
+    </div>
+    {{end}}
+
+    <button type="submit">Salvar Presenças</button>
+    <a href="/">Voltar para ritmistas</a>
+    <a href="/ensaios">Voltar para ensaios</a>
+</form>
+{{end}}
+</body>
+</html>

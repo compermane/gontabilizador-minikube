@@ -1,0 +1,45 @@
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+ingress:
+  enabled: false
+
+serviceAccount:
+  create: false
+  name: ""
+
+service:
+  type: NodePort
+  port: 80      
+
+image:
+  repository: gontabilizador-app
+  tag: latest
+  pullPolicy: Never
+
+mysql:
+  image: custom-mysql
+  tag: latest
+  pullPolicy: IfNotPresent
+
+  rootPassword: root
+  database: gontabilizador
+  user: eugenio
+  password: aA@12345
+
+  pvcName: mysql-pvc
+  storage: 10Gi
+
+nginx:
+  image: custom-nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+  nodePort: 30070  # Pode escolher outra porta entre 30000–32767 se preferir
+
+pythonListener:
+  image: python-listener
+  tag: latest
+  pullPolicy: IfNotPresent

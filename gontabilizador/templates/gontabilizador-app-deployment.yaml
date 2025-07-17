@@ -1,0 +1,36 @@
+# app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gontabilizador-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gontabilizador-app
+  template:
+    metadata:
+      labels:
+        app: gontabilizador-app
+    spec:
+      containers:
+      - name: gontabilizador-app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - containerPort: 3000
+        env:
+          - name: DB_HOST
+            value: mysql
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_USER
+            value: {{ .Values.mysql.user | quote }}
+          - name: DB_PASSWORD
+            value: {{ .Values.mysql.password | quote }}
+          - name: DB_NAME
+            value: {{ .Values.mysql.database | quote }}
+          - name: PUBLIC_HOST
+            value: "http://localhost"
+          - name: PORT
+            value: "3000"

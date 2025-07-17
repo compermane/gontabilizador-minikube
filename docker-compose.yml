@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  mysql:
+    build:
+      context: ./db
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gontabilizador
+      MYSQL_USER: eugenio
+      MYSQL_PASSWORD: aA@12345
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: gontabilizador-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: eugenio
+      DB_PASSWORD: aA@12345
+      DB_NAME: gontabilizador
+      PUBLIC_HOST: http://localhost
+      PORT: 3000
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  python-listener:
+    build:
+      context: ./python
+    container_name: python-listener
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  db_data:

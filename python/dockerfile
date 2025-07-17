@@ -1,0 +1,12 @@
+FROM python:3.11.2
+
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY polling.py .
+
+RUN pip install mysql-connector-python
+RUN chmod +x polling.py
+
+CMD ["python3", "polling.py"]  

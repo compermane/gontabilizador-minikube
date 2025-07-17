@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-listener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-listener
+  template:
+    metadata:
+      labels:
+        app: python-listener
+    spec:
+      containers:
+        - name: listener
+          image: "{{ .Values.pythonListener.image }}:{{ .Values.pythonListener.tag }}"
+          imagePullPolicy: {{ .Values.pythonListener.pullPolicy }}
+          env:
+            - name: DB_HOST
+              value: {{ .Values.mysql.host | quote }}
+            - name: DB_PORT
+              value: {{ .Values.mysql.port | quote }}
+            - name: DB_USER
+              value: {{ .Values.mysql.user | quote }}
+            - name: DB_PASSWORD
+              value: {{ .Values.mysql.password | quote }}
+            - name: DB_NAME
+              value: {{ .Values.mysql.database | quote }}

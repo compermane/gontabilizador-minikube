@@ -1,0 +1,6 @@
+Subir mysql como imagem
+docker run -d --name meu-mysql-container -p 3306:3306 gontabilizador-mysql
+
+Caso o container já exista 
+docker rm meu-mysql-container
+

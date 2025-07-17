@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ritmistas</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/home.css"/>
+</head>
+<body>
+    <h2>Cadastrar Novo Ritmista</h2>
+    <form action="api/v1/registro-ritmista" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="modulo">Modulo:</label>
+        <input type="text" id="modulo" name="modulo" required>
+        <label for="naipe">Naipe:</label>
+        <input type="text" id="naipe" name="naipe" required>
+        <button type="submit">Cadastrar</button>
+        <a href="/ensaios">Ir para ensaios</a>
+    </form>
+    <h1>Lista de Ritmistas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Naipe</th>
+                <th>Modulo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .}}
+            <tr>
+                <td>{{.Nome}}</td>
+                <td>{{.Naipe}}</td>
+                <td>{{.Modulo}}</td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="2">Nenhum ritmista encontrado</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</body>
+</html>
