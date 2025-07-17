@@ -9,7 +9,7 @@ Primeiramente, faça o clone do repositório
 git clone https://github.com/compermane/gontabilizador
 ```
 
-Feito o clone, inicie o minikube
+Feito o clone, inicie o minikube ou execute o arquivo build.sh
 ```bash
 minikube start
 ```
@@ -18,7 +18,9 @@ Então, entre na raíz do projeto e instale o projeto em Helm. Isso fará com qu
 ```bash
 helm install gontabilizador ./gontabilizador
 ```
-Feito isso, para obter o endereço da aplicação, execute os seguintes comandos
+Então, espere algum tempo para todos os pods estiver em "Running" e acesse o endereço k8s.local
+
+Alternativamente, para obter o endereço da aplicação, execute os seguintes comandos
 ```bash
 export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services gontabilizador)
 export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
